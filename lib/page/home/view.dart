@@ -14,14 +14,11 @@ class HomePage extends GetView<HomeController> {
           () => ListView.builder(
             itemCount: controller.state.youtubeSongsId.length,
             itemBuilder: (context, index) {
-              var youtubeSong = controller.state.youtubeSongsId[index];
+              var youtubeSongModel = controller.state.youtubeSongsId[index];
 
               return Center(
                 child: PlayerItem(
-                  audioTitle: youtubeSong.title,
-                  audioAuthor: youtubeSong.author,
-                  audioDuration: youtubeSong.duration.toString(),
-                  audioId: youtubeSong.audio_id,
+                  audioModel: youtubeSongModel,
                   index: index,
                 ),
               );

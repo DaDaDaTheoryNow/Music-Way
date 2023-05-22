@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:ur_style_player/models/audio.dart';
 
 import '../index.dart';
 
 class PlayerItem extends GetView<HomeController> {
-  final String audioTitle;
-  final String audioAuthor;
-  final String audioDuration;
-  final String audioId;
+  final AudioModel audioModel;
   final int index;
 
   const PlayerItem({
     Key? key,
-    required this.audioTitle,
-    required this.audioAuthor,
-    required this.audioDuration,
-    required this.audioId,
+    required this.audioModel,
     required this.index,
   }) : super(key: key);
 
@@ -44,7 +39,7 @@ class PlayerItem extends GetView<HomeController> {
                 children: [
                   Flexible(
                     child: Text(
-                      audioTitle,
+                      audioModel.title,
                       style: TextStyle(
                         fontSize: 18.sp,
                         fontWeight: FontWeight.bold,
@@ -54,7 +49,7 @@ class PlayerItem extends GetView<HomeController> {
                     ),
                   ),
                   Text(
-                    audioAuthor,
+                    audioModel.author,
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w400,
@@ -62,7 +57,7 @@ class PlayerItem extends GetView<HomeController> {
                     ),
                   ),
                   Text(
-                    audioDuration,
+                    audioModel.duration,
                     style: TextStyle(
                       fontSize: 15.sp,
                       fontStyle: FontStyle.italic,
@@ -81,7 +76,7 @@ class PlayerItem extends GetView<HomeController> {
                       heroTag: null,
                       onPressed: () {
                         controller.handlePlayYoutubeSongAsync(
-                            audioId, index, context);
+                            audioModel.audio_id, index, context);
                       },
                       child: controller.state.youtubeSongsId[index].isPlay
                           ? const Icon(Icons.pause)
