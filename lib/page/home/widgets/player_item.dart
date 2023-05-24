@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:ur_style_player/models/audio.dart';
 
@@ -75,12 +76,11 @@ class PlayerItem extends GetView<HomeController> {
                 Obx(() => FloatingActionButton(
                       heroTag: null,
                       onPressed: () {
-                        controller.handlePlayYoutubeSongAsync(
-                            audioModel.audio_id, index, context);
+                        controller.handleYoutubeSongManupulationAsync(
+                            audioModel.audio_id, index, "playing");
                       },
-                      child: controller.state.youtubeSongsId[index].isPlay
-                          ? const Icon(Icons.pause)
-                          : const Icon(Icons.play_arrow),
+                      child: stateIcon(
+                          controller.state.youtubeSongsId[index].status),
                     )),
               ],
             ),
@@ -88,5 +88,25 @@ class PlayerItem extends GetView<HomeController> {
         ],
       ),
     );
+  }
+
+  Widget stateIcon(String status) {
+    switch (status) {
+      case "static":
+        return const Icon(Icons.play_arrow);
+      case "playing":
+        return const Icon(Icons.pause);
+      case "loading":
+        return const SpinKitRing(
+          color: Colors.grey,
+          size: 42,
+          lineWidth: 5.2,
+        );
+      case "downloading":
+        return const Icon(Icons.download);
+      case "error":
+        return const Icon(Icons.error);
+    }
+    return const Icon(Icons.play_arrow);
   }
 }

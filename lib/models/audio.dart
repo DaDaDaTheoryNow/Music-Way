@@ -5,32 +5,33 @@ class AudioModel {
   String author;
   String duration;
   String audio_id;
-  bool isPlay;
+  String status; // loading, downloading, static, playing, error
 
   AudioModel(
       {required this.title,
       required this.author,
       required this.duration,
       required this.audio_id,
-      required this.isPlay});
+      required this.status});
 
+  // for save
   Map<String, dynamic> toJson() {
     return {
       'title': title,
       'author': author,
       'duration': duration,
       'audio_id': audio_id,
-      'isPlay': isPlay,
+      'status': status,
     };
   }
 
+  // for loading
   factory AudioModel.fromJson(Map<String, dynamic> json) {
     return AudioModel(
-      title: json['title'],
-      author: json['author'],
-      duration: json['duration'],
-      audio_id: json['audio_id'],
-      isPlay: json['isPlay'],
-    );
+        title: json['title'],
+        author: json['author'],
+        duration: json['duration'],
+        audio_id: json['audio_id'],
+        status: json['status']);
   }
 }
