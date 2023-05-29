@@ -12,6 +12,7 @@ class ApplicationPage extends GetView<ApplicationController> {
       return PageView(
         controller: controller.pageController,
         onPageChanged: controller.handlePageChanged,
+        physics: const NeverScrollableScrollPhysics(),
         children: const [
           HomePage(), // CounterPage
           SettingsPage(), // SettingsPage

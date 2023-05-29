@@ -3,15 +3,15 @@
 class AudioModel {
   String title;
   String author;
-  String duration;
-  String audio_id;
-  String status; // loading, downloading, static, playing, error
+  Duration duration;
+  String audioId;
+  String status; // loading, downloading, static, playing, error, next
 
   AudioModel(
       {required this.title,
       required this.author,
       required this.duration,
-      required this.audio_id,
+      required this.audioId,
       required this.status});
 
   // for save
@@ -19,8 +19,8 @@ class AudioModel {
     return {
       'title': title,
       'author': author,
-      'duration': duration,
-      'audio_id': audio_id,
+      'duration': duration.inSeconds,
+      'audioId': audioId,
       'status': status,
     };
   }
@@ -30,8 +30,8 @@ class AudioModel {
     return AudioModel(
         title: json['title'],
         author: json['author'],
-        duration: json['duration'],
-        audio_id: json['audio_id'],
+        duration: Duration(seconds: json["duration"]),
+        audioId: json['audioId'],
         status: json['status']);
   }
 }

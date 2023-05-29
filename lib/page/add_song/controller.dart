@@ -45,16 +45,12 @@ class AddSongController extends GetxController {
               List youtubeSongsId =
                   Get.find<HomeController>().state.youtubeSongsId;
 
-              // format duration
-              format(Duration d) =>
-                  d.toString().split('.').first.padLeft(8, "0");
-
               // add in songs list
               AudioModel audioModel = AudioModel(
                 title: audioTitle,
                 author: audioAuthor,
-                duration: format(audioDuration!),
-                audio_id: youtubeSongIdParse,
+                duration: audioDuration ?? const Duration(seconds: 0),
+                audioId: youtubeSongIdParse,
                 status: "static",
               );
               youtubeSongsId.add(
@@ -62,10 +58,16 @@ class AddSongController extends GetxController {
               );
 
               // save songs
-              var jsonString = jsonEncode(youtubeSongsId);
+              List jsonList = [];
+              for (AudioModel value in youtubeSongsId) {
+                jsonList.add(value.toJson());
+              }
+              var jsonString = jsonEncode(jsonList);
 
               SharedPreferences prefs = await SharedPreferences.getInstance();
               prefs.setString('save_songs', jsonString);
+
+              Get.find<HomeController>().initPlayList();
 
               Get.snackbar("Success", "All done",
                   duration: const Duration(seconds: 1));

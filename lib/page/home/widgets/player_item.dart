@@ -18,6 +18,18 @@ class PlayerItem extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    Widget buildDuration(duration) {
+      duration = duration.toString().split('.').first.padLeft(8, "0");
+
+      return Text(
+        duration,
+        style: TextStyle(
+          fontSize: 15.sp,
+          fontStyle: FontStyle.italic,
+        ),
+      );
+    }
+
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 75.h,
@@ -57,13 +69,8 @@ class PlayerItem extends GetView<HomeController> {
                       fontStyle: FontStyle.italic,
                     ),
                   ),
-                  Text(
-                    audioModel.duration,
-                    style: TextStyle(
-                      fontSize: 15.sp,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
+                  // duration widget with format duration
+                  buildDuration(audioModel.duration),
                 ],
               ),
             ),
@@ -77,7 +84,7 @@ class PlayerItem extends GetView<HomeController> {
                       heroTag: null,
                       onPressed: () {
                         controller.handleYoutubeSongManupulationAsync(
-                            audioModel.audio_id, index, "playing");
+                            audioModel.audioId, index, "playing");
                       },
                       child: stateIcon(
                           controller.state.youtubeSongsId[index].status),
