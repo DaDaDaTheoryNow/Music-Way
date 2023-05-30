@@ -44,6 +44,7 @@ dependencies:
   shared_preferences: ^2.1.1
   flutter_spinkit: ^5.2.0
   ffmpeg_kit_flutter: ^5.1.0
+  flutter_slidable: ^3.0.0
 
 
 dev_dependencies:

@@ -23,6 +23,7 @@ class ApplicationPage extends GetView<ApplicationController> {
     Widget buildBottomBar() {
       return Obx(
         () => BottomNavigationBar(
+            backgroundColor: const Color.fromARGB(126, 54, 54, 54),
             currentIndex: controller.state.page,
             onTap: controller.handleBottomBarPressed,
             items: controller.bottomTabs),
