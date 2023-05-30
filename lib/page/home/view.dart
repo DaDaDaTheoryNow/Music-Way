@@ -16,7 +16,7 @@ class HomePage extends GetView<HomeController> {
             child: Align(
               alignment: Alignment.center,
               child: Container(
-                margin: EdgeInsets.all(7),
+                margin: const EdgeInsets.all(7),
                 child: FloatingActionButton.extended(
                   heroTag: "btnHome",
                   onPressed: () => controller.handleGoChoose(),

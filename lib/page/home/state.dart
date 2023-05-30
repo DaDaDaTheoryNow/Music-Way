@@ -3,8 +3,8 @@ import 'package:just_audio/just_audio.dart';
 import 'package:ur_style_player/models/audio.dart';
 
 class HomeState {
-  final RxList _userSongs = [].obs;
-  List get userSongs => _userSongs;
+  final RxList<AudioModel> _userSongs = <AudioModel>[].obs;
+  List<AudioModel> get userSongs => _userSongs;
   set userSongs(value) => _userSongs.value = value;
 
   final RxList<AudioSource> _playlist = <AudioSource>[].obs;
@@ -17,7 +17,9 @@ class HomeState {
           author: "",
           duration: Duration.zero,
           audioId: "",
-          status: "")
+          isPlay: false,
+          isUserSong: false,
+          isDownloaded: false)
       .obs;
   AudioModel get currentSong => _currentSong.value;
   set currentSong(value) => _currentSong.value = value;

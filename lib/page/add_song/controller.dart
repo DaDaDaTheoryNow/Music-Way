@@ -46,12 +46,13 @@ class AddSongController extends GetxController {
 
               // add in songs list
               AudioModel audioModel = AudioModel(
-                title: audioTitle,
-                author: audioAuthor,
-                duration: audioDuration ?? const Duration(seconds: 0),
-                audioId: youtubeSongIdParse,
-                status: "static",
-              );
+                  title: audioTitle,
+                  author: audioAuthor,
+                  duration: audioDuration ?? const Duration(seconds: 0),
+                  audioId: youtubeSongIdParse,
+                  isPlay: false,
+                  isUserSong: true,
+                  isDownloaded: false);
               userSongs.add(
                 audioModel,
               );

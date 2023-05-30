@@ -10,7 +10,9 @@ class PlayerBottomBar extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    final currentSong = controller.state.currentSong;
+    Icon buildIsPlay(bool isPlay) {
+      return (isPlay) ? const Icon(Icons.pause) : const Icon(Icons.play_arrow);
+    }
 
     return Container(
       margin: const EdgeInsets.all(9),
@@ -36,26 +38,27 @@ class PlayerBottomBar extends GetView<HomeController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Flexible(
-                      child: Text(
-                        currentSong.title,
-                        style: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                      child: Obx(() => Text(
+                            controller.state.currentSong.title,
+                            style: TextStyle(
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          )),
                     ),
-                    Text(
-                      currentSong.author,
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
+                    Obx(() => Text(
+                          controller.state.currentSong.author,
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w400,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        )),
                     // duration widget with format duration
-                    buildParseDuration(currentSong.duration),
+                    Obx(() => buildParseDuration(
+                        controller.state.currentSong.duration)),
                   ],
                 ),
               ),
@@ -65,8 +68,15 @@ class PlayerBottomBar extends GetView<HomeController> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.play_arrow))
+                  Obx(() => IconButton(
+                        onPressed: () {
+                          controller.handlePauseResumeSong();
+                        },
+                        icon: (controller.state.currentSong.isPlay)
+                            ? const Icon(Icons.pause)
+                            : const Icon(Icons.play_arrow),
+                        splashRadius: 25.h,
+                      ))
                 ],
               ),
             )
