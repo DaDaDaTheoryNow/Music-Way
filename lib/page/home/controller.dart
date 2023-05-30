@@ -75,7 +75,7 @@ class HomeController extends GetxController {
         player.positionStream.listen((Duration value) async {
           Duration duration = activeSong!.duration;
           if (value > duration) {
-            await playNextYoutubeSong(buildIndex);
+            playNextYoutubeSong(buildIndex);
           }
         });
 
