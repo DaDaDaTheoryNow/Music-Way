@@ -45,11 +45,11 @@ class HomePage extends GetView<HomeController> {
           ),
         ),
       ),
-      floatingActionButton: Obx(() =>
+      /*floatingActionButton: Obx(() =>
           (controller.state.currentSong.audioId.isNotEmpty)
               ? const PlayerBottomBar()
               : Container()),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,*/
     );
   }
 }

@@ -1,12 +1,18 @@
 import 'dart:async';
 
+import 'package:audio_service/audio_service.dart';
 import 'package:just_audio/just_audio.dart';
 
 class InternetStreamAudioSource extends StreamAudioSource {
   final Future<Stream<List<int>>> Function() bytesStreamFactory;
   final AudioPlayer player;
 
-  InternetStreamAudioSource(this.bytesStreamFactory, this.player);
+  String id;
+  String title;
+
+  InternetStreamAudioSource(
+      this.bytesStreamFactory, this.player, this.id, this.title)
+      : super(tag: MediaItem(id: id, title: title));
 
   @override
   Future<StreamAudioResponse> request([int? start, int? end]) async {
@@ -32,6 +38,7 @@ class InternetStreamAudioSource extends StreamAudioSource {
   }
 }
 
+// soon
 class LocaleStreamAudioSource extends StreamAudioSource {
   final List<int> bytes;
   final AudioPlayer player;

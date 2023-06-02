@@ -10,18 +10,14 @@ class PlayerBottomBar extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    Icon buildIsPlay(bool isPlay) {
-      return (isPlay) ? const Icon(Icons.pause) : const Icon(Icons.play_arrow);
-    }
-
     return Container(
       margin: const EdgeInsets.all(9),
       decoration: const BoxDecoration(
-        color: Color.fromARGB(235, 24, 25, 26),
+        color: Color.fromARGB(255, 24, 25, 26),
         borderRadius: BorderRadius.all(Radius.circular(12)),
       ),
       width: MediaQuery.of(context).size.width,
-      height: 50.h,
+      height: 77.h,
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: () {},
@@ -75,6 +71,7 @@ class PlayerBottomBar extends GetView<HomeController> {
                         icon: (controller.state.currentSong.isPlay)
                             ? const Icon(Icons.pause)
                             : const Icon(Icons.play_arrow),
+                        iconSize: 28.h,
                         splashRadius: 25.h,
                       ))
                 ],

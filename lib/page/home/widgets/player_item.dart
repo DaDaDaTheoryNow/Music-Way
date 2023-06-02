@@ -28,22 +28,24 @@ class PlayerItem extends GetView<HomeController> {
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
         width: MediaQuery.of(context).size.width,
-        height: 75.h,
+        height: 80.h,
         child: Slidable(
           key: ValueKey(audioModel.audioId),
           endActionPane: ActionPane(
             extentRatio: 1,
             motion: const DrawerMotion(),
             dismissible: DismissiblePane(onDismissed: () {}),
-            children: const [
+            children: [
               SlidableAction(
-                onPressed: null,
-                backgroundColor: Color.fromARGB(216, 76, 248, 248),
+                onPressed: (context) {
+                  controller.handlePlaySong(audioModel);
+                },
+                backgroundColor: const Color.fromARGB(216, 76, 248, 248),
                 foregroundColor: Colors.white,
                 icon: Icons.play_arrow,
                 label: 'Play',
               ),
-              SlidableAction(
+              const SlidableAction(
                 onPressed: null,
                 backgroundColor: Colors.grey,
                 foregroundColor: Colors.white,
@@ -51,7 +53,10 @@ class PlayerItem extends GetView<HomeController> {
                 label: 'Download',
               ),
               SlidableAction(
-                onPressed: null,
+                onPressed: (context) {
+                  // delete
+                  controller.handleDeleteSong(audioModel);
+                },
                 backgroundColor: Colors.red,
                 foregroundColor: Colors.white,
                 icon: Icons.delete,
