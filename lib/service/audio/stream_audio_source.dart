@@ -5,14 +5,14 @@ import 'package:just_audio/just_audio.dart';
 
 class InternetStreamAudioSource extends StreamAudioSource {
   final Future<Stream<List<int>>> Function() bytesStreamFactory;
-  final AudioPlayer player;
 
-  String id;
-  String title;
+  final String id;
+  final String title;
+  final String author;
 
   InternetStreamAudioSource(
-      this.bytesStreamFactory, this.player, this.id, this.title)
-      : super(tag: MediaItem(id: id, title: title));
+      this.bytesStreamFactory, this.id, this.title, this.author)
+      : super(tag: MediaItem(id: id, title: title, artist: author));
 
   @override
   Future<StreamAudioResponse> request([int? start, int? end]) async {

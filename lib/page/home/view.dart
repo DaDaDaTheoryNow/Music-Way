@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ur_style_player/page/home/widgets/player_bottom_bar.dart';
 import 'package:ur_style_player/page/home/widgets/player_item.dart';
 import 'index.dart';
 

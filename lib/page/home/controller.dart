@@ -1,57 +1,42 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ur_style_player/models/audio.dart';
-import 'package:ur_style_player/page/home/service/init.dart';
-import 'package:ur_style_player/page/home/service/update_current_song.dart';
+import 'package:ur_style_player/service/audio/audio_handler/audio_handler.dart';
 
+import '../../service/audio/init.dart';
 import 'index.dart';
 
 class HomeController extends GetxController {
   final state = HomeState();
   HomeController();
 
-  final player = AudioPlayer(); // Create a player
+  AudioHandler? audioHandler; // Create a song handler
 
   void handleGoChoose() async {
-    InitService(player).cancelSong();
-
     Get.offNamedUntil("/add_song", (route) => true);
   }
 
-  void playSongYoutube(AudioModel playModel) async {
-    await InitService(player).playlist(playModel);
+  void handleDeleteSong(AudioModel deleteModel) async {
+    await InitService().deleteSong(deleteModel, audioHandler!);
+  }
+
+  void handlePlaySong(AudioModel playModel) async {
+    await InitService()
+        .playlist(playModel); // set state.playlist & state.queueIndex
 
     playModel.isPlay = true;
     state.currentSong = playModel;
 
-    InitService(player).duration();
-
-    player.play();
-  }
-
-  void handlePauseResumeSong() {
-    if (state.currentSong.isPlay) {
-      player.pause();
-    } else {
-      player.play();
-    }
-
-    updateCurrentSong(state.currentSong, state.currentSong.isPlay);
-  }
-
-  void handlePlaySong(AudioModel audioModel) {
-    playSongYoutube(audioModel);
-  }
-
-  void handleDeleteSong(AudioModel audioModel) {
-    InitService(player).deleteSong(audioModel);
+    audioHandler!.init();
   }
 
   @override
   void onInit() async {
+    // init audioHandler
+    audioHandler = await initAudioService();
+
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var jsonString = prefs.getString("userSongs");
 

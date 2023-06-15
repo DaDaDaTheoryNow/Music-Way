@@ -1,11 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ur_style_player/common/utils/parse_video_id.dart';
-import 'package:ur_style_player/models/audio.dart';
-import 'package:youtube_explode_dart/youtube_explode_dart.dart';
+
+import 'package:ur_style_player/service/audio/add_audio/add_audio.dart';
 
 import '../../common/utils/loading.dart';
 import 'index.dart';
@@ -27,51 +23,15 @@ class AddSongController extends GetxController {
         message: 'Are you sure about the song?',
         onConfirm: (bool confirmed) async {
           if (confirmed) {
-            try {
-              Navigator.of(context).pop();
-              LoadingUtil(context).startLoading();
+            Navigator.of(context).pop();
+            LoadingUtil(context).startLoading();
 
-              // parse youtube id from video link
-              var youtubeSongIdParse =
-                  ParseVideoId().extractVideoIdFromUrl(state.youtubeUrl);
+            HomeController homeController = Get.find<HomeController>();
 
-              // fetch all info about audio
-              var yt = YoutubeExplode();
-              var audioInfo = await yt.videos.get(youtubeSongIdParse);
-              var audioTitle = audioInfo.title;
-              var audioAuthor = audioInfo.author;
-              var audioDuration = audioInfo.duration;
+            await AddSongService().addSong(context, state, homeController);
 
-              List userSongs = Get.find<HomeController>().state.userSongs;
-
-              // add in songs list
-              AudioModel audioModel = AudioModel(
-                  title: audioTitle,
-                  author: audioAuthor,
-                  duration: audioDuration ?? const Duration(seconds: 0),
-                  audioId: youtubeSongIdParse,
-                  isPlay: false,
-                  isUserSong: true,
-                  isDownloaded: false);
-              userSongs.add(
-                audioModel,
-              );
-
-              // save songs
-              List jsonList = [];
-              for (AudioModel value in userSongs) {
-                jsonList.add(value.toJson());
-              }
-              var jsonString = jsonEncode(jsonList);
-
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              prefs.setString('userSongs', jsonString);
-
-              Get.snackbar("Success", "All done",
-                  duration: const Duration(seconds: 1));
-            } catch (e) {
-              Get.snackbar("Error", "$e");
-            }
+            Get.snackbar("Success", "All done",
+                duration: const Duration(seconds: 1));
 
             Get.close(2);
           }

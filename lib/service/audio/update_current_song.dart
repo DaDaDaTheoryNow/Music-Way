@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
 
-import '../../../models/audio.dart';
-import '../controller.dart';
+import '../../models/audio.dart';
+import '../../page/home/controller.dart';
+
+
 
 void updateCurrentSong(AudioModel audioModel, bool isPlay) {
   audioModel.isPlay = !isPlay;

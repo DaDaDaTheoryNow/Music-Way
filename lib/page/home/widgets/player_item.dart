@@ -54,7 +54,6 @@ class PlayerItem extends GetView<HomeController> {
               ),
               SlidableAction(
                 onPressed: (context) {
-                  // delete
                   controller.handleDeleteSong(audioModel);
                 },
                 backgroundColor: Colors.red,

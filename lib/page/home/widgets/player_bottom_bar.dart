@@ -66,7 +66,7 @@ class PlayerBottomBar extends GetView<HomeController> {
                 children: [
                   Obx(() => IconButton(
                         onPressed: () {
-                          controller.handlePauseResumeSong();
+                          //controller.handlePauseResumeSong();
                         },
                         icon: (controller.state.currentSong.isPlay)
                             ? const Icon(Icons.pause)
